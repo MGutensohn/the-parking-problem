@@ -1,4 +1,5 @@
 # import the necessary packages
+import io
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
@@ -7,7 +8,7 @@ import cv2
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
 camera.resolution = (1920, 1080)
-camera.framerate = 25
+camera.framerate = 3
 rawCapture = PiRGBArray(camera, size=(1920, 1080))
 
 cars_cascade = cv2.CascadeClassifier('lbp_cascade.xml')
