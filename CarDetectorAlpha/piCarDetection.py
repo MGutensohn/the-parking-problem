@@ -7,9 +7,9 @@ import cv2
 #http://www.pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/
 # initialize the camera and grab a reference to the raw camera capture
 camera = PiCamera()
-camera.resolution = (1296, 730)
+camera.resolution = (1296, 736)
 camera.framerate = 3
-rawCapture = PiRGBArray(camera, size=(1296, 730))
+rawCapture = PiRGBArray(camera, size=(1296, 736))
 
 cars_cascade = cv2.CascadeClassifier('lbp_cascade.xml')
 # allow the camera to warmup
