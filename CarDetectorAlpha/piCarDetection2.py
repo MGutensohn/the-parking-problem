@@ -13,7 +13,7 @@ with picamera.PiCamera() as camera:
 
 
 # capture frames from the camera
-    for frame in camera.capture_continuous(stream, format="bgr",):
+    for frame in camera.capture_continuous(stream, format="bgr"):
     # grab the raw NumPy array representing the image, then initialize the timestamp
     # and occupied/unoccupied text
         image = frame.array
