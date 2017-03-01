@@ -14,6 +14,7 @@ rawCapture = PiRGBArray(camera, size=(1920, 1080))
 cars_cascade = cv2.CascadeClassifier('lbp_cascade.xml')
 # allow the camera to warmup
 time.sleep(0.1)
+rawCapture.truncate(0)
 
 # capture frames from the camera
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
