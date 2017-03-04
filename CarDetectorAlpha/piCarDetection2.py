@@ -1,4 +1,5 @@
 # import the necessary packages
+import numpy
 import io
 from picamera.array import PiRGBArray
 import picamera
