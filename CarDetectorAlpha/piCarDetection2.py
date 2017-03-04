@@ -17,7 +17,7 @@ with picamera.PiCamera() as camera:
 
         buffer = numpy.fromstring(stream.getvalue(), dtype=numpy.uint8)
 
-        image = cv2.imdecode(buff, 1)
+        image = cv2.imdecode(buffer, 1)
 
         cars = cars_cascade.detectMultiScale(image, scaleFactor = 1.03,
                                    minNeighbors = 0, minSize=(200,200))
