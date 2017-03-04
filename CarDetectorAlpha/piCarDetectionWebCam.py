@@ -7,6 +7,17 @@ cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
 cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
 
 
+pi_id = 0
+spot_zero = 0
+spot_zero_occupied = 0
+spot_one = 1
+spot_one_occupied = 0
+spot_two = 2
+spot_two_occupied = 0
+spot_three = 3
+spot_three_occupied = 0
+
+
 cars_cascade = cv2.CascadeClassifier('lbp_cascade.xml')
 # allow the camera to warmup
 while(True):
@@ -19,12 +30,25 @@ while(True):
     for (x, y, w, h) in cars:
         if x + w < 320:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
+            spot_zero_occupied = 1
+        else:
+            spot_zero_occupied = 0
         if x >= 320 and x + w < 640:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
+            spot_one_occupied = 1
+        else:
+            spot_one_occupied = 0
         if x >= 640 and x + w <= 960:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
+            spot_two_occupied = 1
+        else:
+            spot_two_occupied = 0
         if x >= 960:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
+            spot_three_occupied = 1
+        else:
+            spot_three_occupied = 0
+
 
 
 

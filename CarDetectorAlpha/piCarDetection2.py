@@ -6,17 +6,17 @@ import time
 import cv2
 
 cars_cascade = cv2.CascadeClassifier('lbp_cascade.xml')
+stream = io.BytesIO()
 
 with picamera.PiCamera() as camera:
-    stream = io.BytesIO()
+    camera.resolution = (1920, 1080)
 
-
-
-# capture frames from the camera
+    # capture frames from the camera
     for frame in camera.capture_continuous(stream, format="bgr"):
-    # grab the raw NumPy array representing the image, then initialize the timestamp
-    # and occupied/unoccupied text
-        image = frame.array
+
+        buffer = numpy.fromstring(stream.getvalue(), dtype=numpy.uint8)
+
+        image = cv2.imdecode(buff, 1)
 
         cars = cars_cascade.detectMultiScale(image, scaleFactor = 1.03,
                                    minNeighbors = 0, minSize=(200,200))
