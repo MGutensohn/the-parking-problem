@@ -1,7 +1,7 @@
 # import the necessary packages
 import io
 from picamera.array import PiRGBArray
-from picamera import PiCamera
+from picamera
 import time
 import cv2
 #http://www.pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/
