@@ -8,7 +8,7 @@ import cv2
 
 import MySQLdb
 
-res_y = 1080
+res_y = 1088
 res_x = 1920
 
 spot_one_ROI = res_x // 4
@@ -17,7 +17,7 @@ spot_three_ROI = spot_one_ROI * 3
 
 camera = PiCamera()
 camera.resolution = (res_x,res_y)
-#camera.framerate = Fraction(1, 60)
+camera.framerate = 1
 rawCapture = PiRGBArray(camera)
 
 cars_cascade = cv2.CascadeClassifier('lbp_cascade.xml')
@@ -57,7 +57,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     image = frame.array
 
     cars = cars_cascade.detectMultiScale(image, scaleFactor = 1.03,
-                                   minNeighbors = 0, minSize=(400,400))
+                                   minNeighbors = 0, minSize=(200,200))
     for (x, y, w, h) in cars:
         if x + w < spot_one_ROI:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
