@@ -41,7 +41,7 @@ def insert_spot_data(spotData):
             "ON DUPLICATE KEY UPDATE " \
             "spot_avail = VALUES(spot_avail)"
             
-	conn = MySQLdb.connect("localhost","cardetector","raspberry","parkingGarage")
+	conn = MySQLdb.connect(host="192.168.43.186",port=3306,user="root",passwd="rollins",db="tarveltparking")
 	cursor = conn.cursor()
 	cursor.executemany(query, spotData)
 	conn.commit()
