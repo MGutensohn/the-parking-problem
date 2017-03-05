@@ -1,40 +1,98 @@
 # import the necessary packages
 import io
+from fractions import Fraction
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
 import cv2
-#http://www.pyimagesearch.com/2015/03/30/accessing-the-raspberry-pi-camera-with-opencv-and-python/
-# initialize the camera and grab a reference to the raw camera capture
+
+import MySQLdb
+
+res_y = 1080
+res_x = 1920
+
+spot_one_ROI = res_x // 4
+spot_two_ROI = spot_one_ROI * 2
+spot_three_ROI = spot_one_ROI * 3
+
 camera = PiCamera()
+camera.resolution = (res_x,res_y)
+#camera.framerate = Fraction(1, 60)
 rawCapture = PiRGBArray(camera)
 
 cars_cascade = cv2.CascadeClassifier('lbp_cascade.xml')
-# allow the camera to warmup
+
 time.sleep(0.1)
 
-# capture frames from the camera
+level = 'floor_one'
+spot_one = 001
+spot_one_occupied = 0
+spot_two = 002
+spot_two_occupied = 0
+spot_three = 003
+spot_three_occupied = 0
+spot_four = 004
+spot_four_occupied = 0
+pi_id = 0001
+
+def insert_spot_data(spotData):
+	query = "INSERT INTO " + level + " (spot_id,spot_avail,pi_id) " \
+            "VALUES(%s,%s,%s)" \
+            "ON DUPLICATE KEY UPDATE " \
+            "spot_avail = VALUES(spot_avail)"
+            
+	conn = MySQLdb.connect("localhost","cardetector","raspberry","parkingGarage")
+	cursor = conn.cursor()
+	cursor.executemany(query, spotData)
+	conn.commit()
+
+
+	cursor.close()
+	conn.close()
+
+
+
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-    # grab the raw NumPy array representing the image, then initialize the timestamp
-    # and occupied/unoccupied text
+
     image = frame.array
 
     cars = cars_cascade.detectMultiScale(image, scaleFactor = 1.03,
-                                   minNeighbors = 0, minSize=(200,200))
+                                   minNeighbors = 0, minSize=(400,400))
     for (x, y, w, h) in cars:
-        cv2.rectangle(image, (x, y), (x + w, y + h), (255, 1, 1), 1)
+        if x + w < spot_one_ROI:
+            cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
+            spot_one_occupied = 1
+        else:
+            spot_one_occupied = 0
+        if x >= spot_one_ROI and x + w < spot_two_ROI:
+            cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
+            spot_two_occupied = 1
+        else:
+            spot_three_occupied = 0
+        if x >= spot_two_ROI and x + w <= spot_three_ROI:
+            cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
+            spot_three_occupied = 1
+        else:
+            spot_two_occupied = 0
+        if x >= spot_three_ROI:
+            cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
+            spot_four_occupied = 1
+        else:
+            spot_four_occupied = 0
+        
 
 
     cv2.imshow('Video', image)
+    spotData = [(spot_one,spot_one_occupied,pi_id),
+                (spot_two,spot_two_occupied,pi_id),
+                (spot_three,spot_three_occupied,pi_id),
+                (spot_four,spot_four_occupied,pi_id)]
+    insert_spot_data(spotData)
 
 
-    # show the frame
-    #cv2.imshow("Frame", image)
     key = cv2.waitKey(1) & 0xFF
 
-    # clear the stream in preparation for the next frame
     rawCapture.truncate(0)
 
-    # if the `q` key was pressed, break from the loop
     if key == ord("q"):
         break
