@@ -17,7 +17,6 @@ spot_three_ROI = spot_one_ROI * 3
 
 camera = PiCamera()
 camera.resolution = (res_x,res_y)
-camera.framerate = 1
 rawCapture = PiRGBArray(camera)
 
 cars_cascade = cv2.CascadeClassifier('lbp_cascade.xml')
@@ -93,6 +92,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     key = cv2.waitKey(1) & 0xFF
 
     rawCapture.truncate(0)
+    sleep(300)
 
     if key == ord("q"):
         break
