@@ -92,7 +92,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     key = cv2.waitKey(1) & 0xFF
 
     rawCapture.truncate(0)
-    time.sleep(294)
+    time.sleep(54)
 
     if key == ord("q"):
         break
