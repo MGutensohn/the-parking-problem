@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b8a35daa-ed99-4b9d-9648-6106830f997a" name="Default" comment="">
+    <list default="true" id="b8a35daa-ed99-4b9d-9648-6106830f997a" name="Default" comment="added sleep timer. Should now take a frame every 5 minutes.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CarDetectorAlpha/piCarDetection.py" afterPath="$PROJECT_DIR$/CarDetectorAlpha/piCarDetection.py" />
     </list>
@@ -29,8 +29,8 @@
       <file leaf-file-name="piCarDetection.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CarDetectorAlpha/piCarDetection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="93" column="26" lean-forward="true" selection-start-line="93" selection-start-column="26" selection-end-line="93" selection-end-column="26" />
+            <state relative-caret-position="258">
+              <caret line="98" column="0" lean-forward="true" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -584,7 +584,14 @@
       <option name="project" value="LOCAL" />
       <updated>1489508625916</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="added sleep timer. Should now take a frame every 5 minutes.">
+      <created>1490308604416</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1490308604416</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TodoView">
@@ -803,8 +810,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CarDetectorAlpha/piCarDetection.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="93" column="26" lean-forward="true" selection-start-line="93" selection-start-column="26" selection-end-line="93" selection-end-column="26" />
+        <state relative-caret-position="258">
+          <caret line="98" column="0" lean-forward="true" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
           <folding />
         </state>
       </provider>
