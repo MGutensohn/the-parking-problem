@@ -21,7 +21,7 @@ rawCapture = PiRGBArray(camera)
 
 cars_cascade = cv2.CascadeClassifier('lbp_cascade.xml')
 
-time.sleep(0.1)
+time.sleep(.3)
 
 level = 'floor_one'
 spot_one = 001
@@ -52,7 +52,9 @@ def insert_spot_data(spotData):
 
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-
+#while True:
+    #camera.capture('tmp.jpg')
+    #image = cv2.imread('tmp.jpg')
     image = frame.array
 
     cars = cars_cascade.detectMultiScale(image, scaleFactor = 1.03,
@@ -81,7 +83,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
         
 
 
-    cv2.imshow('Video', image)
+    #cv2.imshow('Video', image)
     spotData = [(spot_one,spot_one_occupied,pi_id),
                 (spot_two,spot_two_occupied,pi_id),
                 (spot_three,spot_three_occupied,pi_id),
@@ -92,6 +94,14 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     key = cv2.waitKey(1) & 0xFF
 
     rawCapture.truncate(0)
+    print 'spot 1:',spot_one_occupied
+    print 'spot 2:',spot_two_occupied
+    print 'spot 3:',spot_three_occupied
+    print 'spot 4:',spot_four_occupied
+
+
+
+    
     time.sleep(54)
 
     if key == ord("q"):
