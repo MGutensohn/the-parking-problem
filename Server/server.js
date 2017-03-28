@@ -3,6 +3,7 @@ var restify = require('restify'),
 
 var server = restify.createServer({
     name: 'TarParking',
+    handleUpgrades: true
 });
 
 var connection = mysql.createConnection({
@@ -19,10 +20,9 @@ connection.connect(function(err) {
   }
 });
 
-server.listen(8080);
+server.listen(3000);
 
 server.get('/', function (req, res, next) {
     res.send(connection.database);
     return next();
 });
-
