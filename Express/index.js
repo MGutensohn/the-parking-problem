@@ -10,11 +10,9 @@ var connection = mysql.createConnection({
 	database:'tarveltparking'
 });
 
-
 connection.connect();
 
 var id = '1';
-
 
 app.get('/', function(req, res) {
 
@@ -25,5 +23,4 @@ app.get('/', function(req, res) {
 
 });
  
-app.listen(3000)
-
+app.listen(3000);
