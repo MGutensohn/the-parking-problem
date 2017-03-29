@@ -54,34 +54,40 @@ def detect_cars(image_array):
 
     cars = cars_cascade.detectMultiScale(image_array, scaleFactor=1.03,
                                          minNeighbors=0, minSize=(200, 200))
+    print cars
     for (x, y, w, h) in cars:
+         
         if x + w < spot_one_ROI:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
             spot_one_occupied = 1
+            print 'spot one'
         else:
             spot_one_occupied = 0
         if x >= spot_one_ROI and x + w < spot_two_ROI:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
             spot_two_occupied = 1
+            print 'spot 2'
         else:
             spot_three_occupied = 0
         if x >= spot_two_ROI and x + w <= spot_three_ROI:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
             spot_three_occupied = 1
+            print 'spot 3'
         else:
             spot_two_occupied = 0
         if x >= spot_three_ROI:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
             spot_four_occupied = 1
+            print 'spot 4'
         else:
             spot_four_occupied = 0
 
-    # cv2.imshow('Video', image)
-    spotData = [(spot_one, spot_one_occupied, pi_id),
-                (spot_two, spot_two_occupied, pi_id),
-                (spot_three, spot_three_occupied, pi_id),
-                (spot_four, spot_four_occupied, pi_id)]
-    insert_spot_data(spotData)
+    #cv2.imshow('Video', image)
+    #spotData = [(spot_one, spot_one_occupied, pi_id),
+     #           (spot_two, spot_two_occupied, pi_id),
+      #          (spot_three, spot_three_occupied, pi_id),
+       #         (spot_four, spot_four_occupied, pi_id)]
+    #insert_spot_data(spotData)
 
 
 
@@ -91,10 +97,10 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     #image = cv2.imread('tmp.jpg')
 
     image = frame.array
-    thread.start_new_thread(detect_cars, image)
+    thread.start_new_thread(detect_cars, (image,))
 
-    #key = cv2.waitKey(1) & 0xFF
-
+    key = cv2.waitKey(1) & 0xFF
+    time.sleep(54)
     rawCapture.truncate(0)
     print 'spot 1:',spot_one_occupied
     print 'spot 2:',spot_two_occupied
@@ -104,7 +110,6 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
 
     
-    time.sleep(54)
 
     if key == ord("q"):
         break
