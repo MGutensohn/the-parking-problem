@@ -6,7 +6,7 @@ import time
 cars_cascade = cv2.CascadeClassifier('lbp_cascade.xml')
 
 
-img = cv2.imread('pictures/garagepic/pos/pos2.jpg')
+img = cv2.imread('pictures/garagepic/pos/pos1.jpg')
 cars = cars_cascade.detectMultiScale(img,scaleFactor = 1.03,
                                    minNeighbors = 0, minSize=(200,200))
 for (x,y,w,h) in cars:

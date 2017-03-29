@@ -3,6 +3,7 @@ import io
 from fractions import Fraction
 from picamera.array import PiRGBArray
 from picamera import PiCamera
+import thread
 import time
 import cv2
 
@@ -49,16 +50,10 @@ def insert_spot_data(spotData):
 	cursor.close()
 	conn.close()
 
+def detect_cars(image_array):
 
-
-for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-#while True:
-    #camera.capture('tmp.jpg')
-    #image = cv2.imread('tmp.jpg')
-    image = frame.array
-
-    cars = cars_cascade.detectMultiScale(image, scaleFactor = 1.03,
-                                   minNeighbors = 0, minSize=(200,200))
+    cars = cars_cascade.detectMultiScale(image_array, scaleFactor=1.03,
+                                         minNeighbors=0, minSize=(200, 200))
     for (x, y, w, h) in cars:
         if x + w < spot_one_ROI:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
@@ -80,18 +75,25 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
             spot_four_occupied = 1
         else:
             spot_four_occupied = 0
-        
 
-
-    #cv2.imshow('Video', image)
-    spotData = [(spot_one,spot_one_occupied,pi_id),
-                (spot_two,spot_two_occupied,pi_id),
-                (spot_three,spot_three_occupied,pi_id),
-                (spot_four,spot_four_occupied,pi_id)]
+    # cv2.imshow('Video', image)
+    spotData = [(spot_one, spot_one_occupied, pi_id),
+                (spot_two, spot_two_occupied, pi_id),
+                (spot_three, spot_three_occupied, pi_id),
+                (spot_four, spot_four_occupied, pi_id)]
     insert_spot_data(spotData)
 
 
-    key = cv2.waitKey(1) & 0xFF
+
+for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
+#while True:
+    #camera.capture('tmp.jpg')
+    #image = cv2.imread('tmp.jpg')
+
+    image = frame.array
+    thread.start_new_thread(detect_cars, image)
+
+    #key = cv2.waitKey(1) & 0xFF
 
     rawCapture.truncate(0)
     print 'spot 1:',spot_one_occupied
