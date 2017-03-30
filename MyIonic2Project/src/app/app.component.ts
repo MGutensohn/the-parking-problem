@@ -2,9 +2,12 @@ import { Component, ViewChild } from '@angular/core';
 
 import { Platform, MenuController, Nav } from 'ionic-angular';
 
-import { StatusBar, Splashscreen } from 'ionic-native';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { SplashPage } from '../pages/parking-splash-page/splash-page';
+import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
+import { ListPage } from '../pages/list/list';
+import { Security } from '../pages/security/security';
 
 
 @Component({
@@ -13,19 +16,27 @@ import { SplashPage } from '../pages/parking-splash-page/splash-page';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  // make SplashPage the root (or first) page
-  rootPage: any =SplashPage;
+  // make HelloIonicPage the root (or first) page
+  rootPage: any = HelloIonicPage;
   pages: Array<{title: string, component: any}>;
 
   constructor(
     public platform: Platform,
-    public menu: MenuController
+    public menu: MenuController,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen
   ) {
     this.initializeApp();
 
+
     // set our app's pages
     this.pages = [
-      { title: 'Home Page', component: SplashPage },
+      { title: 'Home page', component: HelloIonicPage },
+      { title: 'Level 1', component: ListPage },
+      { title: 'Level 2', component: ListPage },
+      { title: 'Level 3', component: ListPage },
+      { title: 'Level 4', component: ListPage },
+      { title: 'sign-in', component: Security }
     ];
   }
 
@@ -33,8 +44,8 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      StatusBar.styleDefault();
-      Splashscreen.hide();
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
     });
   }
 
