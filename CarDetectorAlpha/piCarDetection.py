@@ -51,7 +51,6 @@ def insert_spot_data(spotData):
 	conn.close()
 
 def detect_cars(image_array):
-
     cars = cars_cascade.detectMultiScale(image_array, scaleFactor=1.03,
                                          minNeighbors=0, minSize=(200, 200))
     print cars
@@ -82,30 +81,24 @@ def detect_cars(image_array):
         else:
             spot_four_occupied = 0
 
-    #cv2.imshow('Video', image)
-    #spotData = [(spot_one, spot_one_occupied, pi_id),
-     #           (spot_two, spot_two_occupied, pi_id),
-      #          (spot_three, spot_three_occupied, pi_id),
-       #         (spot_four, spot_four_occupied, pi_id)]
-    #insert_spot_data(spotData)
+    cv2.imshow('Video', image)
+    spotData = [(spot_one, spot_one_occupied, pi_id),
+               (spot_two, spot_two_occupied, pi_id),
+               (spot_three, spot_three_occupied, pi_id),
+               (spot_four, spot_four_occupied, pi_id)]
+    insert_spot_data(spotData)
 
 
 
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-#while True:
-    #camera.capture('tmp.jpg')
-    #image = cv2.imread('tmp.jpg')
 
     image = frame.array
-    thread.start_new_thread(detect_cars, (image,))
+    detect = thread.start_new_thread(detect_cars, (image,))
 
     key = cv2.waitKey(1) & 0xFF
+    detect.join()
     time.sleep(54)
     rawCapture.truncate(0)
-    print 'spot 1:',spot_one_occupied
-    print 'spot 2:',spot_two_occupied
-    print 'spot 3:',spot_three_occupied
-    print 'spot 4:',spot_four_occupied
 
 
 
