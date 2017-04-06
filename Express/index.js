@@ -3,14 +3,13 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
-
+var mysql = require
 var app = express();
 
 
 // JSON testing
 app.get('/', function(req, res) {
      // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8100');
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8100');
 
 // Request methods you wish to allow
