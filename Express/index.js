@@ -1,26 +1,38 @@
-var express = require('express')
-var mysql = require('mysql');
+var express = require('express');
+//var session = require('cookie-session');
+var bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var jsonParser = bodyParser.json();
 
-var app = express()
- 
-var connection = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	password: 'rollins',
-	database:'tarveltparking'
-});
+var app = express();
 
-connection.connect();
 
-var id = '1';
-
+// JSON testing
 app.get('/', function(req, res) {
+     // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8100');
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8100');
 
-	connection.query('select * from PARKINGLEVEL1 where id = ?', id, function(err,result){
-	res.json({notes: result})
-	connection.release();
-});
+// Request methods you wish to allow
+        res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
-});
- 
-app.listen(3000);
+        // Request headers you wish to allow
+        res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+        // Set to true if you need the website to include cookies in the requests sent
+        // to the API (e.g. in case you use sessions)
+        res.setHeader('Access-Control-Allow-Credentials', true);
+
+    res.json({
+        "data":"hello world"
+       });
+ })
+
+// Can't get anything else
+.use(function(req, res, next){
+    res.setHeader('Content-Type', 'text/plain');
+    res.status(404).send('Page Error !');
+    })
+
+
+.listen(3000)
