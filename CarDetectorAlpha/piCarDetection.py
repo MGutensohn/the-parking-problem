@@ -110,6 +110,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     spot_2 = image[spot_one_ROI:, spot_two_ROI:]
     spot_3 = image[spot_two_ROI:, spot_three_ROI:]
     spot_4 = image[spot_three_ROI:, :]
+
     detect_1 = thread.start_new_thread(detect_car, (spot_1, spot_one))
     detect_2 = thread.start_new_thread(detect_car, (spot_2, spot_two))
     detect_3 = thread.start_new_thread(detect_car, (spot_3, spot_three))
