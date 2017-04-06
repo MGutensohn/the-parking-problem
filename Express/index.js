@@ -1,26 +1,24 @@
-var express = require('express')
-var mysql = require('mysql');
+var express = require('express');
+//var session = require('cookie-session');
+var bodyParser = require('body-parser');
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+var jsonParser = bodyParser.json();
 
-var app = express()
- 
-var connection = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	password: 'rollins',
-	database:'tarveltparking'
-});
+var app = express();
 
-connection.connect();
 
-var id = '1';
-
+// JSON testing
 app.get('/', function(req, res) {
+    res.json({
+        "data":"hello world"
+       });
+ })
 
-	connection.query('select * from PARKINGLEVEL1 where id = ?', id, function(err,result){
-	res.json({notes: result})
-	connection.release();
-});
+// Can't get anything else
+.use(function(req, res, next){
+    res.setHeader('Content-Type', 'text/plain');
+    res.status(404).send('Page Error !');
+    })
 
-});
- 
-app.listen(3000);
+
+.listen(8090)
