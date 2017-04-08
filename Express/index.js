@@ -3,9 +3,17 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var jsonParser = bodyParser.json();
-var mysql = require
+var mysql = require('mysql');
 var app = express();
 
+var connection = mysql.createConnection({
+	host: 'localhost',
+	user: 'root',
+	password: 'rollins',
+	database:'tarveltparking'
+});
+
+connection.connect();
 
 // JSON testing
 app.get('/', function(req, res) {
@@ -22,9 +30,11 @@ app.get('/', function(req, res) {
         // to the API (e.g. in case you use sessions)
         res.setHeader('Access-Control-Allow-Credentials', true);
 
-    res.json({
-        "data":"hello world"
-       });
+        connection.query('select * from PARKINGLEVEL1 where id = ?', 1, function (err, result) {
+            res.json({
+                "data": result
+             });
+        });
  })
 
 // Can't get anything else
