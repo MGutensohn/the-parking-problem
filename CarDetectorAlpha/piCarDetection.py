@@ -50,6 +50,19 @@ def insert_spot_data(spotData):
 	cursor.close()
 	conn.close()
 
+def detect_car(image_array, spot):
+    cars = cars_cascade.detectMultiScale(image_array, scaleFactor=1.03,
+                                         minNeighbors=0, minSize=(200, 200))
+    print cars
+    for (x, y, w, h) in cars:
+        spot_occupied = 1
+    else:
+        spot_occupied = 0
+
+    spotData = [(spot, spot_occupied, pi_id)]
+    insert_spot_data(spotData)
+
+
 def detect_cars(image_array):
     cars = cars_cascade.detectMultiScale(image_array, scaleFactor=1.03,
                                          minNeighbors=0, minSize=(200, 200))
@@ -93,10 +106,23 @@ def detect_cars(image_array):
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
 
     image = frame.array
-    detect = thread.start_new_thread(detect_cars, (image,))
+    spot_1 = image[0:, spot_one_ROI:]
+    spot_2 = image[spot_one_ROI:, spot_two_ROI:]
+    spot_3 = image[spot_two_ROI:, spot_three_ROI:]
+    spot_4 = image[spot_three_ROI:, :]
+
+    detect_1 = thread.start_new_thread(detect_car, (spot_1, spot_one))
+    detect_2 = thread.start_new_thread(detect_car, (spot_2, spot_two))
+    detect_3 = thread.start_new_thread(detect_car, (spot_3, spot_three))
+    detect_4 = thread.start_new_thread(detect_car, (spot_4, spot_four))
+
 
     key = cv2.waitKey(1) & 0xFF
-    detect.join()
+    detect_1.join()
+    detect_2.join()
+    detect_3.join()
+    detect_4.join()
+
     time.sleep(54)
     rawCapture.truncate(0)
 
