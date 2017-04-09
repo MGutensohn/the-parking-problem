@@ -4,7 +4,8 @@
   "description": "CMS 484: Senior Capstone Group Project Phase 0 Due: By beginning of class on Th. Feb. 2. Submission: Submit .docx to BB (“Phase 0” assignment).  If you need to submit multiple documents, please make sure they are all attached to one submission.  Do not make multiple submissions (one for each document)!  Only one team member needs to submit.  1.     List your team name and team members.  Team Name: Rollins Valet Service Team Members: Eddy Verde, Michael Gutensohn, Nick Benincasa, Chakib Cerny",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.15.0"
+    "express": "^4.15.0",
+    "gcloud": "^0.37.2"
   },
   "devDependencies": {},
   "scripts": {
