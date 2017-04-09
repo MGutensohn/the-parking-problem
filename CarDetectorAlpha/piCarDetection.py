@@ -106,10 +106,10 @@ def detect_cars(image_array):
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
 
     image = frame.array
-    spot_1 = image[0:, spot_one_ROI:]
-    spot_2 = image[spot_one_ROI:, spot_two_ROI:]
-    spot_3 = image[spot_two_ROI:, spot_three_ROI:]
-    spot_4 = image[spot_three_ROI:, :]
+    spot_1 = image[0:0, spot_one_ROI:1080]
+    spot_2 = image[spot_one_ROI:0, spot_two_ROI:1080]
+    spot_3 = image[spot_two_ROI:0, spot_three_ROI:1080]
+    spot_4 = image[spot_three_ROI:0, res_x:1080]
 
     detect_1 = threading.Thread(target=detect_car, args=(spot_1, spot_one))
     detect_2 = threading.Thread(target=detect_car, args=(spot_2, spot_two))
