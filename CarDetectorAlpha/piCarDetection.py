@@ -59,8 +59,8 @@ def detect_car(image_array, spot):
     else:
         spot_occupied = 0
 
-    spotData = [(spot, spot_occupied, pi_id)]
-    insert_spot_data(spotData)
+    #spotData = [(spot, spot_occupied, pi_id)]
+    #insert_spot_data(spotData)
 
 
 def detect_cars(image_array):
