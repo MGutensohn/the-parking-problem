@@ -116,6 +116,11 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     detect_3 = threading.Thread(detect_car, (spot_3, spot_three))
     detect_4 = threading.Thread(detect_car, (spot_4, spot_four))
 
+    detect_1.start()
+    detect_2.start()
+    detect_3.start()
+    detect_4.start()
+
 
     key = cv2.waitKey(1) & 0xFF
     detect_1.join()
