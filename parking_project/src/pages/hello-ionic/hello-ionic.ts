@@ -13,8 +13,8 @@ export class HelloIonicPage {
      var response = http.get("http://localhost:3000/")
      .map((res) =>res.json())
      .subscribe((data)=>{
-     this.data = JSON.stringify(data);
-     console.log(response)
+     this.data = data[0].num;
+     console.log(response);
    })
   }
 }
