@@ -10,21 +10,60 @@
 
 <ion-content padding >
 
-  <b style="text-align:center" >
-    <font size="22">
-      Rollins Parking Program
-    </font>
-  </b>
+<html>
+<head>
+<style>
 
-  <p style="text-align:center" brbr>
+div.container {
+  width: 100%;
+}
+
+header, footer {
+    padding: 1em;
+    color: white;
+    background-color: #A9A9A9;
+    clear: left;
+    text-align: center;
+}
+
+nav {
+    float: center;
+    max-width: 3000px;
+    margin: 100;
+    padding: 1em;
+}
+
+aside {
+    float: left;
+    max-width: 200px;
+    margin: 0;
+    padding: 1em;
+}
+
+
+</style>
+</head>
+
+<div class="container">
+
+
+<header style="text-align:center;" >
+  <h1><img alt="rlogo" src="https://upload.wikimedia.org/wikipedia/en/thumb/e/ea/Rollins-logo.svg/1280px-Rollins-logo.svg.png" style="align-items:center width:600px;height:200px;">
+  </h1>
+</header>
+
+  <body>
+
+<nav>
+  <p style="text-align:center">
     <font size="12">
-        There are actually :
+        They are actually:
     </font>
   </p>
 
   <p style="text-align:center">
     <font size="22" color="red">
-      <label id = "input" for="Spot 1 is: "> {{data}} </label>
+      <label alt="spots" for="Spot 1 is: ">0</label>
     </font>
   </p>
 
@@ -33,5 +72,14 @@
       Spots available.
       </font>
   </p>
+  </nav>
+
+  <footer>
+  <p style="text-align-last:center">The parking problem team ©
+  </p>
+  </footer>
+  </body>
+  </div>
+  </html>
 
 </ion-content>
