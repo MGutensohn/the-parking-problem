@@ -3,7 +3,7 @@ import io
 from fractions import Fraction
 from picamera.array import PiRGBArray
 from picamera import PiCamera
-import thread
+import threading
 import time
 import cv2
 
@@ -111,10 +111,10 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     spot_3 = image[spot_two_ROI:, spot_three_ROI:]
     spot_4 = image[spot_three_ROI:, :]
 
-    detect_1 = thread.start_new_thread(detect_car, (spot_1, spot_one))
-    detect_2 = thread.start_new_thread(detect_car, (spot_2, spot_two))
-    detect_3 = thread.start_new_thread(detect_car, (spot_3, spot_three))
-    detect_4 = thread.start_new_thread(detect_car, (spot_4, spot_four))
+    detect_1 = threading.Thread(detect_car, (spot_1, spot_one))
+    detect_2 = threading.Thread(detect_car, (spot_2, spot_two))
+    detect_3 = threading.Thread(detect_car, (spot_3, spot_three))
+    detect_4 = threading.Thread(detect_car, (spot_4, spot_four))
 
 
     key = cv2.waitKey(1) & 0xFF
