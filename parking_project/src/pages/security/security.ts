@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 
 
+
 @Component({
   selector: 'page-security',
+  templateUrl: 'hello-ionic.html',
   template: `
   	<div [ngStyle]="{'background-image': 'url(' + photo + ')'}"></div>
   	<h3> Admin portal </h3>

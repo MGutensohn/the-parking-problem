@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import {Http} from '@angular/http';
 import 'rxjs/Rx';
 
+
 @Component({
   selector: 'page-hello-ionic',
   templateUrl: 'hello-ionic.html'
