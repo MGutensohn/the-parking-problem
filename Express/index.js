@@ -1,3 +1,4 @@
+var gcloud = require("gcloud");
 var express = require('express');
 //var session = require('cookie-session');
 var bodyParser = require('body-parser');
@@ -7,7 +8,9 @@ var mysql = require('mysql');
 var app = express();
 
 var connection = mysql.createConnection({
-	host: 'localhost',
+	// host: '35.190.143.237',
+	// port:'3307',
+    host: 'localhost',
 	user: 'root',
 	password: 'rollins',
 	database:'tarveltparking'
@@ -30,10 +33,8 @@ app.get('/', function(req, res) {
         // to the API (e.g. in case you use sessions)
         res.setHeader('Access-Control-Allow-Credentials', true);
 
-        connection.query('select * from PARKINGLEVEL1 where id = ?', 1, function (err, result) {
-            res.json({
-                "data": result
-             });
+        connection.query('select count(*) as num from parkinglevel1;', function (err, result) {
+            res.send(result);
         });
  })
 
