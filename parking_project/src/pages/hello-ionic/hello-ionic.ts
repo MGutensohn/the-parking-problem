@@ -11,10 +11,10 @@ import 'rxjs/Rx';
 export class HelloIonicPage {
   data:any
   constructor(public navCtrl: NavController,http:Http) {
-     var response = http.get("http://localhost:3000/")
+     var response = http.get("https://theparkingproblem.appspot.com/")
      .map((res) =>res.json())
      .subscribe((data)=>{
-     this.data = data[0].num;
+     this.data = data;
      console.log(response);
    })
   }

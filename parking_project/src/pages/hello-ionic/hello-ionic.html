@@ -1,87 +1,163 @@
-<ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>Tar Valet Service</ion-title>
-  </ion-navbar>
-</ion-header>
-
-
-<ion-content padding >
-
+<!DOCTYPE html>
 <html>
-<head>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
 <style>
-
-div.container {
-  width: 100%;
-  height: 100%;
+body, html {
+    height: 100%;
+    font-family: "Inconsolata", sans-serif;
 }
-
-header {
-    color: white;
-    background-color: #A9A9A9;
-    clear: left;
-    text-align: center;
+.bgimg {
+    background-position: center;
+    background-size: cover;
+    background-image: url("https://upload.wikimedia.org/wikipedia/en/thumb/e/ea/Rollins-logo.svg/1280px-Rollins-logo.svg.png") height:200px;
+    min-height: 45%;
 }
-
-footer {
-    padding: 20px;
-    color: white;
-    clear: left;
-    background-color: #A9A9A9;
-    text-align: center;
+.menu {
+    display: none;
 }
-
-
-nav {
-    float: center;
-    max-width: 3000px;
-    margin: 90px;
-    padding: 6em;
-}
-
-
-
 </style>
-</head>
+<body>
 
-<div class="container">
+<!-- Links (sit on top) -->
+<div class="w3-top">
+  <div class="w3-row w3-padding w3-black">
+    <div class="w3-col s3">
+      <a href="#" class="w3-button w3-block w3-black">HOME</a>
+    </div>
+    <div class="w3-col s3">
+      <a href="#about" class="w3-button w3-block w3-black">DATA</a>
+    </div>
+    <div class="w3-col s3">
+      <a href="#menu" class="w3-button w3-block w3-black">LOG-IN</a>
+    </div>
+    <div class="w3-col s3">
+      <a href="#where" class="w3-button w3-block w3-black">CONTACT</a>
+    </div>
+  </div>
+</div>
 
+<!-- Header with image -->
+<header class="bgimg w3-display-container w3-grayscale-min" id="home">
 
-<header style="text-align:center;" >
-  <h1><img alt="rlogo" src="https://upload.wikimedia.org/wikipedia/en/thumb/e/ea/Rollins-logo.svg/1280px-Rollins-logo.svg.png" style="align-items:center width:600px;height:200px;">
-  </h1>
+  <div class="w3-display-middle w3-center">
+  <h5 class="w3-center w3-padding324" style="font-size:80px; color:#B22222" >10<span class="w3-tag w3-wide">{{data}}</span></h5>
+    <p style="font-size:32px">Spots are available right now.<br></p>
+  </div>
+  <div class="w3-display-bottomright w3-center w3-padding-large">
+    <span class="w3-tag" style="font-size:30px">Rollins College Valet</span>
+  </div>
 </header>
 
-  <body>
+<!-- Add a background color and large text to the whole page -->
+<div class="w3-sand w3-grayscale w3-large">
 
-<nav>
-  <p style="text-align:center">
-    <font size="12">
-        There are actually:
-    </font>
-  </p>
+<!-- About Container -->
+  <div class="w3-content" style="max-width:800px">
+    <h5 class="w3-center w3-padding-64" style="font-size:90px" color="red" ><span class="w3-tag w3-wide"></span></h5>
+    <br>
+    
 
-  <p style="text-align:center">
-    <font size="22" color="red">
-      <label alt="spots" for="Spot 1 is: ">{{data}}</label>
-    </font>
-  </p>
-  <p style="text-align:center">
-    <font size="12">
-      Spots available.
-      </font>
-  </p>
-  </nav>
+</div>
+    <img src="http://r-net.rollins.edu/marketing-communications/images/Rollins_logo_BLACK.png" style="text-align:center;width:30%;max-width:250px" class="w3-margin-top">
 
-  <footer style="text-align:center">
-  <p>The parking problem team ©
-  </p>
-  </footer>
-  </body>
+
+<div class="w3-container" id="about" tyle="padding-top:32px;">
+<div class="w3-content" style="max-width:700px">
+    <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">ON CONSTRUCTION</span></h5>
+    <br><br><br><br><br><br><br><br><br>
+    <h5>Data here</h5>
+    <br><br><br><br>
+    <h5>and here</h5>
+    <br><br><br><br><br><br><br>
+
+
+</div>
+</div>
+
+
+<!-- Menu Container -->
+<div class="w3-container" id="menu">
+  <div class="w3-content" style="max-width:700px">
+ 
+    <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">LOG-IN</span></h5>
+
+    <br><br><br>
+  
+    <form action="/action_page.php" target="_blank">
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Username" required name="Username"></p>
+      <p><input class="w3-input w3-padding-16" type="text" placeholder="Password" required name="Password"></p>
+      <p>
+        <button class="w3-button w3-light-grey w3-padding-large" type="log-in">
+          <i class="fa fa-paper-plane"></i> LOG-IN
+        </button>
+      </p>
+    </form>
+    <br><br><br><br><br><br><br><br><br><br><br>
+
+    </div>
+</div>
+
+<!-- Contact/Area Container -->
+<div class="w3-container" id="where" style="padding-bottom:65px;">
+  <div class="w3-content" style="max-width:700px">
+    <h5 class="w3-center w3-padding-48"><span class="w3-tag w3-wide">CONTACT</span></h5>
+    <br><br><br><br>
+    <p>The campus safety office is open 24/7</p>
+    <p>To contact us, please call 407-646-2999</p>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br>
   </div>
-  </html>
+</div>
 
-</ion-content>
+<!-- End page content -->
+</div>
+
+<!-- Footer -->
+<footer class="w3-center w3-light-grey w3-padding-48 w3-large">
+</footer>
+
+<!-- Add Google Maps -->
+<script>
+function myMap()
+{
+  myCenter=new google.maps.LatLng(41.878114, -87.629798);
+  var mapOptions= {
+    center:myCenter,
+    zoom:12, scrollwheel: false, draggable: false,
+    mapTypeId:google.maps.MapTypeId.ROADMAP
+  };
+  var map=new google.maps.Map(document.getElementById("googleMap"),mapOptions);
+
+  var marker = new google.maps.Marker({
+    position: myCenter,
+  });
+  marker.setMap(map);
+}
+
+// Tabbed Menu
+function openMenu(evt, menuName) {
+  var i, x, tablinks;
+  x = document.getElementsByClassName("menu");
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablink");
+  for (i = 0; i < x.length; i++) {
+     tablinks[i].className = tablinks[i].className.replace(" w3-dark-grey", "");
+  }
+  document.getElementById(menuName).style.display = "block";
+  evt.currentTarget.firstElementChild.className += " w3-dark-grey";
+}
+document.getElementById("myLink").click();
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
+<!--
+To use this code on your website, get a free API key from Google.
+Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
+-->
+
+</body>
+</html>
