@@ -18,7 +18,7 @@ spot_three = 3
 spot_three_occupied = 0
 
 
-cars_cascade = cv2.CascadeClassifier('lbp_cascade.xml')
+cars_cascade = cv2.CascadeClassifier('anchor_cascade.xml')
 # allow the camera to warmup
 while(True):
     # Capture frame-by-frame
@@ -26,7 +26,7 @@ while(True):
 
 
     cars = cars_cascade.detectMultiScale(image, scaleFactor = 1.03,
-                                   minNeighbors = 0, minSize=(200,200))
+                                   minNeighbors = 0, minSize=(80,80))
     for (x, y, w, h) in cars:
         if x + w < 320:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)

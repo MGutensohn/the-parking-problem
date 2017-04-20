@@ -20,7 +20,7 @@ camera = PiCamera()
 camera.resolution = (res_x,res_y)
 rawCapture = PiRGBArray(camera)
 
-cars_cascade = cv2.CascadeClassifier('lbp_cascade.xml')
+cars_cascade = cv2.CascadeClassifier('anchor_cascade.xml')
 
 time.sleep(.3)
 
@@ -40,7 +40,7 @@ def insert_spot_data(spotData):
             "VALUES(%s,%s,%s)" \
             "ON DUPLICATE KEY UPDATE " \
             "spot_avail = VALUES(spot_avail)"
-            
+
 	conn = MySQLdb.connect(host="192.168.43.186",port=3306,user="root",passwd="rollins",db="tarveltparking")
 	cursor = conn.cursor()
 	cursor.executemany(query, spotData)
@@ -64,11 +64,11 @@ def detect_car(image_array, spot):
 
 
 def detect_cars(image_array):
-    cars = cars_cascade.detectMultiScale(image_array, scaleFactor=1.03,
+    cars = cars_cascade.detectMultiScale(image_array, scaleFactor=1.05,
                                          minNeighbors=0, minSize=(200, 200))
     print cars
     for (x, y, w, h) in cars:
-         
+
         if x + w < spot_one_ROI:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
             spot_one_occupied = 1
@@ -133,7 +133,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
 
 
 
-    
+
 
     if key == ord("q"):
         break
