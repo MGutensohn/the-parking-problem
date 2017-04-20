@@ -3,10 +3,9 @@ import io
 from fractions import Fraction
 from picamera.array import PiRGBArray
 from picamera import PiCamera
-import threading
 import time
 import cv2
-
+from uuid import uuid4
 import MySQLdb
 
 res_y = 1088
@@ -41,7 +40,7 @@ def insert_spot_data(spotData):
             "ON DUPLICATE KEY UPDATE " \
             "spot_avail = VALUES(spot_avail)"
 
-	conn = MySQLdb.connect(host="192.168.43.186",port=3306,user="root",passwd="rollins",db="tarveltparking")
+	conn = MySQLdb.connect(host="35.190.143.237",user="root",passwd="rollins",db="tarveltparking")
 	cursor = conn.cursor()
 	cursor.executemany(query, spotData)
 	conn.commit()
@@ -50,51 +49,46 @@ def insert_spot_data(spotData):
 	cursor.close()
 	conn.close()
 
-def detect_car(image_array, spot):
-    cars = cars_cascade.detectMultiScale(image_array, scaleFactor=1.03,
-                                         minNeighbors=0, minSize=(200, 200))
-    print cars
-    for (x, y, w, h) in cars:
-        spot_occupied = 1
+def get_car_data(img, spot):
+    if spot == spot_one:
+        data = img[]
+    elif spot == spot_two:
+        data = img[]
+    elif spot == spot_three:
+        data = img[]
     else:
-        spot_occupied = 0
+        data = img[]
 
-    #spotData = [(spot, spot_occupied, pi_id)]
-    #insert_spot_data(spotData)
+    cv2.imwrite('cars/' + uuid4(), data)
 
 
 def detect_cars(image_array):
-    cars = cars_cascade.detectMultiScale(image_array, scaleFactor=1.05,
-                                         minNeighbors=0, minSize=(200, 200))
+    cars = cars_cascade.detectMultiScale(image_array, scaleFactor=1.01,
+                                         minNeighbors=0, maxSize=(200, 200))
     print cars
     for (x, y, w, h) in cars:
 
         if x + w < spot_one_ROI:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
-            spot_one_occupied = 1
-            print 'spot one'
-        else:
             spot_one_occupied = 0
+        else:
+            spot_one_occupied = 1
         if x >= spot_one_ROI and x + w < spot_two_ROI:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
-            spot_two_occupied = 1
-            print 'spot 2'
+            spot_two_occupied = 0
         else:
-            spot_three_occupied = 0
+            spot_three_occupied = 1
         if x >= spot_two_ROI and x + w <= spot_three_ROI:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
-            spot_three_occupied = 1
-            print 'spot 3'
+            spot_three_occupied = 0
         else:
-            spot_two_occupied = 0
+            spot_two_occupied = 1
         if x >= spot_three_ROI:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
-            spot_four_occupied = 1
-            print 'spot 4'
-        else:
             spot_four_occupied = 0
+        else:
+            spot_four_occupied = 1
 
-    cv2.imshow('Video', image)
     spotData = [(spot_one, spot_one_occupied, pi_id),
                (spot_two, spot_two_occupied, pi_id),
                (spot_three, spot_three_occupied, pi_id),
@@ -106,27 +100,11 @@ def detect_cars(image_array):
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
 
     image = frame.array
-    spot_1 = image[0:0, spot_one_ROI:1080]
-    spot_2 = image[spot_one_ROI:0, spot_two_ROI:1080]
-    spot_3 = image[spot_two_ROI:0, spot_three_ROI:1080]
-    spot_4 = image[spot_three_ROI:0, res_x:1080]
-
-    detect_1 = threading.Thread(target=detect_car, args=(spot_1, spot_one))
-    detect_2 = threading.Thread(target=detect_car, args=(spot_2, spot_two))
-    detect_3 = threading.Thread(target=detect_car, args=(spot_3, spot_three))
-    detect_4 = threading.Thread(target=detect_car, args=(spot_4, spot_four))
-
-    detect_1.start()
-    detect_2.start()
-    detect_3.start()
-    detect_4.start()
+    detect_cars(image)
 
 
     key = cv2.waitKey(1) & 0xFF
-    detect_1.join()
-    detect_2.join()
-    detect_3.join()
-    detect_4.join()
+
 
     time.sleep(54)
     rawCapture.truncate(0)
