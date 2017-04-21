@@ -1,6 +1,6 @@
 # import the necessary packages
-import io
-from fractions import Fraction
+
+import os
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import time
@@ -23,7 +23,7 @@ cars_cascade = cv2.CascadeClassifier('anchor_cascade.xml')
 
 time.sleep(.3)
 
-level = 'floor_one'
+level = 'parkinglevel1'
 spot_one = 001
 spot_one_occupied = 0
 spot_two = 002
@@ -34,13 +34,20 @@ spot_four = 004
 spot_four_occupied = 0
 pi_id = 0001
 
+MYSQL_CONNECTION = os.environ.get('INSTANCE_CONNECTION_NAME')
+MYSQL_USER = os.environ.get('MYSQL_USER')
+MYSQL_PASSWORD = os.environ.get('MYSQL_PASSWORD')
+
+mysql_unix_socket = os.path.join(
+            '/cloudsql', MYSQL_CONNECTION)
+
 def insert_spot_data(spotData):
 	query = "INSERT INTO " + level + " (spot_id,spot_avail,pi_id) " \
             "VALUES(%s,%s,%s)" \
             "ON DUPLICATE KEY UPDATE " \
             "spot_avail = VALUES(spot_avail)"
 
-	conn = MySQLdb.connect(host="35.190.143.237",user="root",passwd="rollins",db="tarveltparking")
+	conn = MySQLdb.connect(unix_socket=mysql_unix_socket,user=MYSQL_USER,passwd=MYSQL_PASSWORD)
 	cursor = conn.cursor()
 	cursor.executemany(query, spotData)
 	conn.commit()
