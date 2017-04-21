@@ -56,17 +56,17 @@ def insert_spot_data(spotData):
 	cursor.close()
 	conn.close()
 
-def get_car_data(img, spot):
-    if spot == spot_one:
-        data = img[]
-    elif spot == spot_two:
-        data = img[]
-    elif spot == spot_three:
-        data = img[]
-    else:
-        data = img[]
-
-    cv2.imwrite('cars/' + uuid4(), data)
+# def get_car_data(img, spot):
+#     if spot == spot_one:
+#         data = img[]
+#     elif spot == spot_two:
+#         data = img[]
+#     elif spot == spot_three:
+#         data = img[]
+#     else:
+#         data = img[]
+#
+#     cv2.imwrite('cars/' + uuid4(), data)
 
 
 def detect_cars(image_array):
