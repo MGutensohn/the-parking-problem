@@ -38,8 +38,7 @@ MYSQL_CONNECTION = os.environ.get('INSTANCE_CONNECTION_NAME')
 MYSQL_USER = os.environ.get('MYSQL_USER')
 MYSQL_PASSWORD = os.environ.get('MYSQL_PASSWORD')
 
-mysql_unix_socket = os.path.join(
-            '/cloudsql', MYSQL_CONNECTION)
+mysql_unix_socket = os.path.join(MYSQL_CONNECTION)
 
 def insert_spot_data(spotData):
 	query = "INSERT INTO " + level + " (spot_id,spot_avail,pi_id) " \
@@ -47,7 +46,8 @@ def insert_spot_data(spotData):
             "ON DUPLICATE KEY UPDATE " \
             "spot_avail = VALUES(spot_avail)"
 
-	conn = MySQLdb.connect(unix_socket=mysql_unix_socket,user=MYSQL_USER,passwd=MYSQL_PASSWORD)
+	print MYSQL_USER
+	conn = MySQLdb.connect(host='35.190.143.237',user='root',passwd='rollins',db='tarveltparking')
 	cursor = conn.cursor()
 	cursor.executemany(query, spotData)
 	conn.commit()
@@ -70,29 +70,51 @@ def insert_spot_data(spotData):
 
 
 def detect_cars(image_array):
-    cars = cars_cascade.detectMultiScale(image_array, scaleFactor=1.01,
+    cars = cars_cascade.detectMultiScale(image_array, scaleFactor=1.03,
                                          minNeighbors=0, maxSize=(200, 200))
-    print cars
+    spot_one_occupied = 1
+    spot_two_occupied = 1
+    spot_three_occupied = 1
+    spot_four_occupied = 1
     for (x, y, w, h) in cars:
 
         if x + w < spot_one_ROI:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
             spot_one_occupied = 0
+            print 'spot one'
         else:
             spot_one_occupied = 1
-        if x >= spot_one_ROI and x + w < spot_two_ROI:
+            
+    for (x, y, w, h) in cars:
+		if x >= spot_one_ROI and x + w < spot_two_ROI:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
             spot_two_occupied = 0
+            print 'spot two'
         else:
             spot_three_occupied = 1
-        if x >= spot_two_ROI and x + w <= spot_three_ROI:
+            
+    for (x, y, w, h) in cars:
+		if x >= spot_two_ROI and x + w <= spot_three_ROI:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
             spot_three_occupied = 0
+            print 'spot three'
+
         else:
             spot_two_occupied = 1
-        if x >= spot_three_ROI:
+            
+    for (x, y, w, h) in cars:
+		if x >= spot_two_ROI and x + w <= spot_three_ROI:
+            cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
+            spot_three_occupied = 0
+            print 'spot three'
+
+        else:
+            spot_two_occupied = 1
+    for (x, y, w, h) in cars:
+		if x >= spot_three_ROI:
             cv2.rectangle(image, (x, y), (x + w, y + h), (1, 255, 1), 2)
             spot_four_occupied = 0
+            print 'spot four'
         else:
             spot_four_occupied = 1
 
