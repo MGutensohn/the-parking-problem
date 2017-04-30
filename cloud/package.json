@@ -1,0 +1,29 @@
+// This is the imports and other needed information to start the application by use
+//  npm start
+{
+  "name": "theparkingproblem",
+  "version": "1.0.0",
+  "description": "CAPSTONE the parking problem",
+  "engines":{
+    "node": ">=4.3.2"
+  },
+  "scripts": {
+    "test": "cd ../..; npm run t -- appengine/cloudsql/test/*.test.js",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2",
+    "mysql": "^2.13.0",
+    "prompt": "^1.0.0",
+    "cors": "^2.8.3",
+    "body-parser": "^1.17.1",
+    "twilio":"^2.11.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://source.developers.google.com/p/theparkingproblem/r/theparkingproblem"
+  }
+}

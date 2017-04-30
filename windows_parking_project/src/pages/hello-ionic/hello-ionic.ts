@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import {Http} from '@angular/http';
 import 'rxjs/Rx';
 
+/** This is where data is being sent to the html page **/
 
 @Component({
   selector: 'page-hello-ionic',
@@ -11,7 +12,7 @@ import 'rxjs/Rx';
 export class HelloIonicPage {
   data:any
   constructor(public navCtrl: NavController,http:Http) {
-     var response = http.get("https://theparkingproblem.appspot.com/")
+     var response = http.get("http://localhost:1337/")
      .map((res) =>res.json())
      .subscribe((data)=>{
      this.data = data;
